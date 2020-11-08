@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:graphql_qima/graphql.dart';
+import 'package:graphql_qima/screen/addauction.dart';
 import 'package:graphql_qima/screen/detail.dart';
 import 'package:graphql_qima/screen/list.dart';
 
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
         home: ListAuction(),
         routes: {
           ListAuction.id: (context) => ListAuction(),
-          DetailAution.id: (context) => DetailAution()
+          DetailAution.id: (context) => DetailAution(),
+          AddAuction.id: (context) => AddAuction(),
         },
       )),
     );

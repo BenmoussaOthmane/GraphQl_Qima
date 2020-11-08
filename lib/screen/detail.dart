@@ -52,9 +52,12 @@ class _DetailAutionState extends State<DetailAution> {
   ''';
 
   String codew;
+  double addcent = 0;
+  String some;
   @override
   void setState(fn) {
     codew = widget.code;
+    addcent = double.parse(widget.prix);
     super.setState(fn);
   }
 
@@ -64,40 +67,62 @@ class _DetailAutionState extends State<DetailAution> {
       appBar: AppBar(
         title: Text('Detail auction'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(widget.code),
-          Text(widget.name),
-          SizedBox(
-            height: 50,
-          ),
-          Text(
-            widget.prix,
-            style: TextStyle(
-                color: Colors.blue, fontSize: 50, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Mutation(
-            options: MutationOptions(document: mutationUpdate),
-            builder: (runMutationUpdate, result) {
-              return MaterialButton(
-                child: Text(
-                  'Add Auction',
-                  style: TextStyle(color: Colors.black),
-                ),
-                // onPressed: () => runMutation(
-                //     {'code': '000', 'name': 'Othmane', 'prix': '500'}),
-                onPressed: () => runMutationUpdate(
-                    {'code': widget.code, 'name': 'widget.name', 'prix': '6000'}),
-                // onPressed: () => runMutationDelete({'code': widget.code}),
-              );
-            },
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(widget.code),
+            Text(widget.name),
+            SizedBox(
+              height: 50,
+            ),
+            Text(
+              widget.prix,
+              style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            Mutation(
+              options: MutationOptions(
+                  document: mutationUpdate,
+                  update: (Cache cache, QueryResult result) {
+                    return cache;
+                  },
+                  // or do something with the result.data on completion
+                  onCompleted: (dynamic resultData) {
+                    print(resultData);
+                  }),
+              builder: (runMutationUpdate, result) {
+                return Container(
+                  color: Colors.blue,
+                  child: MaterialButton(
+                    child: Text(
+                      'Add 100',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    // onPressed: () => runMutation(
+                    //     {'code': '000', 'name': 'Othmane', 'prix': '500'}),
+                    onPressed: () {
+                      setState(() {
+                        some = (addcent + 100).toString();
+                      });
+                      runMutationUpdate({
+                        'code': widget.code,
+                        'name': 'widget.name',
+                        'prix': some
+                      });
+                    },
+                    // onPressed: () => runMutationDelete({'code': widget.code}),
+                  ),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }

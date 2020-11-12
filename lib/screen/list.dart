@@ -8,10 +8,10 @@ import 'detail.dart';
 class ListAuction extends StatefulWidget {
   static final String id = 'listauction';
   @override
-  _ListAuctionState createState() => _ListAuctionState();
+  _Listauctionstate createState() => _Listauctionstate();
 }
 
-class _ListAuctionState extends State<ListAuction> {
+class _Listauctionstate extends State<ListAuction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +32,7 @@ class _ListAuctionState extends State<ListAuction> {
           }
           return ListView.builder(
             itemBuilder: (_, index) {
-              final resultdata = result.data['auction'][index];
+              final resultdata = result.data['auctions'][index];
               return Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: GestureDetector(
@@ -41,9 +41,9 @@ class _ListAuctionState extends State<ListAuction> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => DetailAution(
-                                  code: result.data['auction'][index]['code'],
-                                  name: result.data['auction'][index]['name'],
-                                  prix: result.data['auction'][index]['prix'],
+                                  code: result.data['auctions'][index]['entryPrice'],
+                                  name: result.data['auctions'][index]['id'],
+                                  // prix: result.data['auctions'][index]['prix'],
                                 )));
                   },
                   child: Container(
@@ -75,7 +75,7 @@ class _ListAuctionState extends State<ListAuction> {
                             ),
                           ),
                           Text(
-                            resultdata['code'],
+                            resultdata['id'],
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -98,7 +98,7 @@ class _ListAuctionState extends State<ListAuction> {
               //                   )));
               //     });
             },
-            itemCount: result.data['auction'].length,
+            itemCount: result.data['auctions'].length,
           );
         },
       ),

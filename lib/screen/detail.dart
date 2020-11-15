@@ -5,10 +5,9 @@ import 'package:graphql_qima/graphql.dart';
 import '../querymutation.dart';
 
 class DetailAution extends StatefulWidget {
-  DetailAution({Key key, this.code, this.name, this.prix}) : super(key: key);
+  DetailAution({Key key, this.code,this.entryPrice}) : super(key: key);
   final String code;
-  final String name;
-  final String prix;
+  final int entryPrice;
   static final String id = 'detailauction';
   @override
   _DetailAutionState createState() => _DetailAutionState();
@@ -32,20 +31,20 @@ class _DetailAutionState extends State<DetailAution> {
   }
 """
       .replaceAll('\n', '');
+
   String mutationGetAuction = '''
   mutatuion Get_auction
-  query(\$code:String!){
-  auction(where: {code: {_eq: \$code}}) {
-    code,
-    name
-    prix
+  query(\$id:String!){
+  auction(where: {id: {_eq: \$id}}) {
+    id
+    entryPrice
   }
 }''';
   String mutationUpdate = '''
-  mutation Update_auction(\$code:String!,\$name:String,\$prix:String){
+  mutation Update_auction(\$id:String!,\$entryPrice:Int){
   update_auction(where: 
-    {code: {_eq: \$code}}, 
-    _set: {name: \$name, prix: \$prix}) {
+    {id: {_eq: \$id}}, 
+    _set: {entryPrice: \$entryPrice}) {
     affected_rows
   }
 }
@@ -60,17 +59,16 @@ class _DetailAutionState extends State<DetailAution> {
   ''';
 
   String codew;
-  double addcent = 0;
-  String some;
+  int addcent = 0;
+  int some=0;
   String queryGetAuction = "";
   @override
   void initState() {
     queryGetAuction = '''
-query getAuctionid() {
-  auction(where: {code: {_eq: "${widget.code}"}}) {
-    code,
-    name,
-    prix
+query getAuctionid(\$id:String!){
+  auctions(where: {id: {_eq: "${widget.code}"}}) {
+    id
+    entryPrice
   }
 }  
  
@@ -94,7 +92,8 @@ query getAuctionid() {
                 pollInterval: 5,
               ),
               builder: (result, {fetchMore, refetch}) {
-                    addcent = double.parse(result.data['auction'][0]['prix']);
+                    // addcent = double.parse(result.data['auction'][0]['entryPrice']);
+                    addcent =result.data['auctions'][0]['entryPrice'];
                 if (result.hasException) {
                   return Text(result.exception.toString());
                 }
@@ -103,10 +102,10 @@ query getAuctionid() {
                 }
                 return Column(
                   children: [
-                    if (result.data['auction'][0]['code'] != null)
+                    if (result.data['auctions'][0]['id'] != null)
                       Container(
                         child: Text(
-                          result.data['auction'][0]['code'],
+                          result.data['auctions'][0]['id'],
                           style: TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
@@ -117,10 +116,10 @@ query getAuctionid() {
                     SizedBox(
                       height: 50,
                     ),
-                    result.data['auction'][0]['prix'] == null
+                    result.data['auctions'][0]['entryPrice'] == null
                         ? Text('Loading')
                         : Text(
-                            result.data['auction'][0]['prix'],
+                            (result.data['auctions'][0]['entryPrice']).toString(),
                             style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 50,
@@ -152,12 +151,11 @@ query getAuctionid() {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      some = (addcent + 100).toString();
+                                      some = addcent + 100;
                                     });
                                     runMutationUpdate({
-                                      'code': widget.code,
-                                      'name': 'widget.name',
-                                      'prix': some
+                                      'id': widget.code,
+                                      'entryPrice': some
                                     });
                                   },
                                 ),
@@ -171,12 +169,11 @@ query getAuctionid() {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      some = (addcent + 200).toString();
+                                      some = addcent + 200;
                                     });
                                     runMutationUpdate({
-                                      'code': widget.code,
-                                      'name': 'widget.name',
-                                      'prix': some
+                                      'id': widget.code,
+                                      'entryPrice': some
                                     });
                                   },
                                 ),
@@ -190,12 +187,11 @@ query getAuctionid() {
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      some = (addcent + 500).toString();
+                                      some = addcent + 500;
                                     });
                                     runMutationUpdate({
                                       'code': widget.code,
-                                      'name': 'widget.name',
-                                      'prix': some
+                                      'entryPrice': some
                                     });
                                   },
                                 ),

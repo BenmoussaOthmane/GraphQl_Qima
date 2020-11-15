@@ -4,6 +4,7 @@ import 'package:graphql_qima/graphql.dart';
 import 'package:graphql_qima/screen/addauction.dart';
 import 'package:graphql_qima/screen/detail.dart';
 import 'package:graphql_qima/screen/list.dart';
+import 'package:graphql_qima/screen/signup.dart';
 
 GraphQLConfiguration graphQLConfiguration = GraphQLConfiguration();
 
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: CacheProvider(
           child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: ListAuction(),
+        home: SignUp(),
         routes: {
           ListAuction.id: (context) => ListAuction(),
           DetailAution.id: (context) => DetailAution(),

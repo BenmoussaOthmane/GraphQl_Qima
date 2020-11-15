@@ -37,14 +37,14 @@ class _Listauctionstate extends State<ListAuction> {
                 padding: const EdgeInsets.all(15.0),
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailAution(
-                                  code: result.data['auctions'][index]['entryPrice'],
-                                  name: result.data['auctions'][index]['id'],
-                                  // prix: result.data['auctions'][index]['prix'],
-                                )));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => DetailAution(
+                    //               code: result.data['auctions'][index]['id'],
+                    //               entryPrice: result.data['auctions'][index]['entryPrice'],
+                    //               // prix: result.data['auctions'][index]['prix'],
+                    //             )));
                   },
                   child: Container(
                     height: MediaQuery.of(context).size.height / 6,
@@ -65,8 +65,8 @@ class _Listauctionstate extends State<ListAuction> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                            height: 100,
-                            width: 100,
+                            height: 70,
+                            width: 70,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.network(
@@ -77,7 +77,7 @@ class _Listauctionstate extends State<ListAuction> {
                           Text(
                             resultdata['id'],
                             style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -102,12 +102,12 @@ class _Listauctionstate extends State<ListAuction> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushReplacementNamed(context, AddAuction.id);
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     Navigator.pushReplacementNamed(context, AddAuction.id);
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }

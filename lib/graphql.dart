@@ -19,5 +19,4 @@ class GraphQLConfiguration {
       link: httpLink,
     );
   }
-
-}
+  }

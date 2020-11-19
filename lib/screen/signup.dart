@@ -14,11 +14,13 @@ class _SignUpState extends State<SignUp> {
     final _passwodControler = TextEditingController();
     final _phoneControler = TextEditingController();
 
+    String name,email,pas;
+
     String addmutation = """
   mutation{
     signup(input:{
-      fullName:"c",
-      email:"c@gmail.com",
+      fullName:"w",
+      email:"w@gmail.com"
       password:"azerty",
       phone:123456789
     }){
@@ -100,12 +102,9 @@ class _SignUpState extends State<SignUp> {
                           borderRadius: BorderRadius.circular(15)),
                       child: Center(
                         child: FlatButton(
-                          onPressed: () => runMutation({
-                            'fullName': _nameControler.text,
-                            'email': _emailControler.text,
-                            'password': _passwodControler.text,
-                            'phone': _phoneControler.text
-                          }),
+                          onPressed: () {
+                            runMutation({});
+                          },
                           child: Text('ADD Auction',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 20)),
